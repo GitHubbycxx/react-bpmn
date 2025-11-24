@@ -16,6 +16,7 @@ export const defaultThemeData: ThemeData = {
   borderRadius: 6,
   // 基础主题色
   colorPrimary: '#FF33CC',
+  // colorPrimary: '#1473E1',
   // 背景色：dark模式
   darkBgColor: '#000000',
   // 背景色：light模式

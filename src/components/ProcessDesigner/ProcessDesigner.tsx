@@ -746,14 +746,14 @@ export default function ProcessDesigner() {
           </Col>
           <Col span={17}>
             {renderToolBar()}
+            {/* backgroundImage:
+                  'linear-gradient(#8E8E8E 1px, transparent 0), linear-gradient(90deg,#8E8E8E 1px, transparent 0)', */}
             <div
               id="canvas"
               style={{
                 backgroundColor: darkMode
                   ? defaultThemeData.darkCanvasBgColor
                   : defaultThemeData.lightCanvasBgColor,
-                backgroundImage:
-                  'linear-gradient(#8E8E8E 1px, transparent 0), linear-gradient(90deg,#8E8E8E 1px, transparent 0)',
                 backgroundSize: '20px 20px',
               }}
             />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Collapse, Space, Typography } from 'antd';
+import { Tabs, Collapse, Space, Typography } from 'antd';
 import ElementBaseInfo from '@/bpmn/panel/ElementBaseInfo/ElementBaseInfo';
 
 import ElementDocument from '@/bpmn/panel/ElementDocument/ElementDocument';
@@ -9,6 +9,7 @@ import ElementListener from '@/bpmn/panel/ElementListener/ElementListener';
 import ElementTask from '@/bpmn/panel/ElementTask/ElementTask';
 import MultiInstance from '@/bpmn/panel/MultiInstance/MultiInstance';
 import ElementForm from '@/bpmn/panel/ElementForm/ElementForm';
+import './PropertyPanel.less';
 import {
   AppstoreOutlined,
   AuditOutlined,
@@ -35,6 +36,7 @@ interface IProps {
   modeler: any;
 }
 
+const { TabPane } = Tabs;
 /**
  * 属性面板
  * @param props
@@ -391,26 +393,86 @@ export default function PropertyPanel(props: IProps) {
 
   return (
     <>
-      <Space direction="vertical" size={0} style={{ display: 'flex' }}>
-        <Collapse
-          bordered={false}
-          expandIconPosition={'end'}
-          /* accordion为true时只展示一个面板 */
-          accordion={false}
-          defaultActiveKey={['1']}
-          destroyInactivePanel={true}
+      <Space
+        direction="vertical"
+        size={0}
+        style={{ display: 'flex', width: '100%' }}
+      >
+        {/* 改为Tabs组件实现基本属性/高级属性切换 */}
+        <Tabs
+          defaultActiveKey="basic"
+          // 关键修改：TabBar使用Flex布局，实现两端对齐
+          tabBarStyle={{
+            borderBottom: '1px solid #f0f0f0',
+            display: 'flex', // 开启Flex布局
+            justifyContent: 'space-between', // 两端对齐
+            alignItems: 'center', // 垂直居中（可选，优化视觉）
+            padding: '0 8px', // 可选：添加左右内边距，避免Tab贴边
+            height: '62px',
+          }}
+          style={{ width: '100%' }}
         >
-          {renderElementBaseInfo()}
-          {renderFlowCondition()}
-          {renderSignalMessage()}
-          {renderElementForm()}
-          {renderElementTask()}
-          {renderMultiInstance()}
-          {renderExecutionListener()}
-          {renderTaskListener()}
-          {renderExtensionProperties()}
-          {renderElementOtherInfo()}
-        </Collapse>
+          {/* 基本属性Tab */}
+          <TabPane
+            tab={
+              <Typography
+                style={{
+                  color: colorPrimary,
+                  fontWeight: 'bold',
+                  fontSize: '14px',
+                }}
+              >
+                基本属性
+              </Typography>
+            }
+            key="basic"
+          >
+            <Collapse
+              bordered={false}
+              expandIconPosition={'end'}
+              accordion={false}
+              defaultActiveKey={['base-info']}
+              destroyInactivePanel={true}
+              style={{ marginTop: 8 }}
+            >
+              {renderElementBaseInfo()}
+              {renderSignalMessage()}
+              {renderExecutionListener()}
+              {renderFlowCondition()}
+              {renderElementForm()}
+              {renderElementTask()}
+              {renderMultiInstance()}
+              {renderTaskListener()}
+            </Collapse>
+          </TabPane>
+
+          {/* 高级属性Tab */}
+          <TabPane
+            tab={
+              <Typography
+                style={{
+                  color: colorPrimary,
+                  fontWeight: 'bold',
+                  fontSize: '14px',
+                }}
+              >
+                高级属性
+              </Typography>
+            }
+            key="advanced"
+          >
+            <Collapse
+              bordered={false}
+              expandIconPosition={'end'}
+              accordion={false}
+              destroyInactivePanel={true}
+              style={{ marginTop: 8 }}
+            >
+              {renderExtensionProperties()}
+              {renderElementOtherInfo()}
+            </Collapse>
+          </TabPane>
+        </Tabs>
       </Space>
     </>
   );

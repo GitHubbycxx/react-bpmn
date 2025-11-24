@@ -10,7 +10,8 @@ export interface ThemeState {
 
 const initialState: ThemeState = {
   borderRadius: 6,
-  colorPrimary: '#FF33CC',
+  // colorPrimary: '#FF33CC',
+  colorPrimary: '#1473E1',
   darkMode: false,
 };
 
